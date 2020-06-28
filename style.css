@@ -1,0 +1,93 @@
+* {
+  font-family: 'Oxygen', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.calc {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 25px;
+  background: #181818;
+}
+
+.display {
+  position: relative;
+  width: calc(100% - 4px);
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 0 5px;
+
+}
+
+.display-input-div {
+  height: 5rem;
+  line-height: 5rem;
+  font-size: 2rem;
+  background:#a1bd66;
+  text-align: right;
+  box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,0.5);
+  margin-bottom: 2rem;
+}
+
+.display-input {
+  margin-right: 0.5rem;
+}
+
+.button-pad {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+}
+
+button {
+  width: calc(25% - 10px);
+  text-align: center;
+  line-height: 3rem;
+  border-radius: 5px;
+  font-size: 100%;
+  font-family: inherit;
+  color: #ffffff;
+  margin: 5px;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,0.3);
+  border: none;
+}
+
+.btn-num {
+  background: #5d5d5f;
+  user-select: none;
+  transition:box-shadow .3s;
+}
+
+.btn-op {
+  background-color: #e5e5e5;
+  color: #181818;
+}
+
+.btn-equals {
+  width: calc(50% - 10px);
+  background-color: #ff8000;
+  color: #ffffff;
+}
+
+button:active {
+  box-shadow: inset 0px 0px 18px 0px rgba(0,0,0,0.8);
+}
