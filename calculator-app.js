@@ -31,114 +31,21 @@ const seven = document.querySelector('.btn-seven');
 const eight = document.querySelector('.btn-eight');
 const nine = document.querySelector('.btn-nine');
 
-// Display numbers on screen
-zero.addEventListener('click', () => {
+// Targets each number button and loops through dynamically
+numButton.forEach(button => {
 
-  // If function replaces the zero on the screen rather than append numbers to it
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 0;
-  } else {
-    input.innerHTML += 0;
-  }
+  button.addEventListener('click', () => {
 
-});
+    if ( input.innerHTML == 0 ) {
+      input.innerHTML = button.dataset.value;
 
-one.addEventListener('click', () => {
+    } else {
+      input.innerHTML += button.dataset.value;
+    }
 
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 1;
-  } else {
-    input.innerHTML += 1;
-  }
+  })
 
 });
-
-two.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 2;
-  } else {
-    input.innerHTML += 2;
-  }
-
-});
-
-three.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 3;
-  } else {
-    input.innerHTML += 3;
-  }
-
-});
-
-four.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 4;
-  } else {
-    input.innerHTML += 4;
-  }
-
-});
-
-five.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 5;
-  } else {
-    input.innerHTML += 5;
-  }
-
-});
-
-six.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 6;
-  } else {
-    input.innerHTML += 6;
-  }
-
-});
-
-seven.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 7;
-  } else {
-    input.innerHTML += 7;
-  }
-
-});
-
-eight.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 8;
-  } else {
-    input.innerHTML += 8;
-  }
-
-});
-
-nine.addEventListener('click', () => {
-
-  if ( input.innerHTML == 0 ) {
-    input.innerHTML = 9;
-  } else {
-    input.innerHTML += 9;
-  }
-
-});
-
-// How can I cycle through the numbers rather than listing them all out like above?
-// for ( let i = 0; i < 10; i++ ) {
-//   buttonPad.addEventListener('click', () => {
-//     input.innerHTML += numButton[i].value;
-//   });
-// }
 
 // Clears the screen and sets the value to zero
 ac.addEventListener('click', () => {
