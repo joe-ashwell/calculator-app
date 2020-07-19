@@ -18,6 +18,8 @@ const mathOp = document.querySelectorAll('.btn-math');
 // Memory of button presses
 let memory = [];
 
+// Enables the ability to use a media query
+let mQ = window.matchMedia( "(max-width: 767px)" );
 
 // Targets each number button and loops through dynamically
 numButton.forEach(button => {
@@ -84,8 +86,16 @@ equals.addEventListener('click', () => {
   let calcString = memory.join("");
   let answer = eval(calcString);
 
+  if (mQ.matches) {
+    // window width is less than 767px
+    limitAnswer = answer.toString().substring(0, 8);
+  }
+  else {
+    // window width is greater than 767px
+    limitAnswer = answer.toString().substring(0, 14);
+  }
+
   // Limits the total length of the input field
-  let limitAnswer = answer.toString().substring(0, 14);
   input.innerHTML = limitAnswer;
 
   // Clears memory
