@@ -88,7 +88,7 @@ equals.addEventListener('click', () => {
 
   if (mQ.matches) {
     // window width is less than 767px
-    limitAnswer = answer.toString().substring(0, 8);
+    limitAnswer = answer.toString().substring(0, 9);
   }
   else {
     // window width is greater than 767px
