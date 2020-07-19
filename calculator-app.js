@@ -2,43 +2,31 @@
 const input = document.querySelector('p');
 input.innerHTML = 0;
 
-// To target the button pad
-const buttonPad = document.querySelector('.button-pad');
-
 // To target the operation buttons
 const ac = document.querySelector('.btn-ac');
 const cl = document.querySelector('.btn-c');
 const posNeg = document.querySelector('.btn-pos-neg');
-const div = document.querySelector('.btn-div');
-const multiply = document.querySelector('.btn-multiply');
-const minus = document.querySelector('.btn-minus');
-const plus = document.querySelector('.btn-plus');
 const decimal = document.querySelector('.btn-decimal');
 const equals = document.querySelector('.btn-equals');
 
 // To target all the number buttons
 const numButton = document.querySelectorAll('.btn-num');
 
-// To target individual number buttons
-const zero = document.querySelector('.btn-zero');
-const one = document.querySelector('.btn-one');
-const two = document.querySelector('.btn-two');
-const three = document.querySelector('.btn-three');
-const four = document.querySelector('.btn-four');
-const five = document.querySelector('.btn-five');
-const six = document.querySelector('.btn-six');
-const seven = document.querySelector('.btn-seven');
-const eight = document.querySelector('.btn-eight');
-const nine = document.querySelector('.btn-nine');
+// To target all the maths operator buttons
+const mathOp = document.querySelectorAll('.btn-math');
+
+// Memory of button presses
+let memory = [];
+
 
 // Targets each number button and loops through dynamically
 numButton.forEach(button => {
 
   button.addEventListener('click', () => {
 
-    if ( input.innerHTML == 0 ) {
+    // If function to check if the current value is 0, or a math operator,   
+    if ( input.innerHTML == 0 || isNaN(input.innerHTML) ) {
       input.innerHTML = button.dataset.value;
-
     } else {
       input.innerHTML += button.dataset.value;
     }
@@ -47,14 +35,33 @@ numButton.forEach(button => {
 
 });
 
-// Clears the screen and sets the value to zero
-ac.addEventListener('click', () => {
-  input.innerHTML = 0;
+// Targets each math operator (excluding = ) and loops through dynamically
+mathOp.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    memory.push(input.innerHTML);
+    input.innerHTML = button.dataset.value;
+    memory.push(input.innerHTML);
+
+  })
+
 });
 
-// Clears the screen and sets the value to zero
-cl.addEventListener('click', () => {
+// Clears the screen and sets the value to zero -- also, clears the memory completely
+ac.addEventListener('click', () => {
+
+  memory = [];
   input.innerHTML = 0;
+
+});
+
+// Clears the screen and sets the value to zero -- also, clears the last entry to the memory array 
+cl.addEventListener('click', () => {
+
+  memory = [];
+  input.innerHTML = 0;
+  
 });
 
 // To change the sign of the display value
@@ -62,6 +69,26 @@ posNeg.addEventListener('click', () => {
   input.innerHTML = -input.innerHTML;
 });
 
+// Adds decimal to values
 decimal.addEventListener('click', () => {
   input.innerHTML += '.'
+});
+
+// Calculation on equals press
+equals.addEventListener('click', () => {
+
+  // Adds last value to memory array
+  memory.push(input.innerHTML);
+
+  // Joins the array into a string, then uses the eval function to calculate the string
+  let calcString = memory.join("");
+  let answer = eval(calcString);
+
+  // Limits the total length of the input field
+  let limitAnswer = answer.toString().substring(0, 14);
+  input.innerHTML = limitAnswer;
+
+  // Clears memory
+  memory = [];
+
 });
