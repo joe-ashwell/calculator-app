@@ -50,7 +50,7 @@ mathOp.forEach(button => {
 
 });
 
-// Clears the screen and sets the value to zero -- also, clears the memory completely
+// Clears the screen and sets the value to zero -- also, clears the memory
 ac.addEventListener('click', () => {
 
   memory = [];
@@ -58,7 +58,7 @@ ac.addEventListener('click', () => {
 
 });
 
-// Clears the screen and sets the value to zero -- also, clears the last entry to the memory array 
+// Clears the screen and sets the value to zero -- also, clears the memory
 cl.addEventListener('click', () => {
 
   memory = [];
@@ -89,8 +89,7 @@ equals.addEventListener('click', () => {
   if (mQ.matches) {
     // window width is less than 767px
     limitAnswer = answer.toString().substring(0, 9);
-  }
-  else {
+  } else {
     // window width is greater than 767px
     limitAnswer = answer.toString().substring(0, 14);
   }
