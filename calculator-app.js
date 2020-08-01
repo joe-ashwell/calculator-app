@@ -21,9 +21,6 @@ let memory = [];
 // Answer var
 let answer;
 
-// To evaluate if answer has been given
-let answerGiven = 0;
-
 // Enables the ability to use a media query
 let mQ = window.matchMedia( "(max-width: 767px)" );
 
@@ -33,7 +30,7 @@ numButton.forEach(button => {
   button.addEventListener('click', () => {
 
     // To check if the current value is 0, or a math operator, or the display is an answer and therefore you don't want to append to it   
-    if ( input.innerHTML == 0 || isNaN(input.innerHTML) || answerGiven > 0 ) {
+    if ( input.innerHTML == 0 || isNaN(input.innerHTML) ) {
       input.innerHTML = button.dataset.value;
     } else {
       input.innerHTML += button.dataset.value;
@@ -88,7 +85,6 @@ mathOp.forEach(button => {
       }
     }
     
-
   })
 
 });
@@ -98,7 +94,6 @@ ac.addEventListener('click', () => {
 
   memory = [];
   input.innerHTML = 0;
-  answerGiven = 0;
 
 });
 
@@ -107,18 +102,21 @@ cl.addEventListener('click', () => {
 
   memory = [];
   input.innerHTML = 0;
-  answerGiven = 0;
   
 });
 
 // To change the sign of the display value
 posNeg.addEventListener('click', () => {
+
   input.innerHTML = -input.innerHTML;
+
 });
 
 // Adds decimal to values
 decimal.addEventListener('click', () => {
+
   input.innerHTML += '.'
+
 });
 
 // Calculation on equals press
@@ -157,10 +155,7 @@ equals.addEventListener('click', () => {
 
   input.innerHTML = limitAnswer;
 
-  answerGiven ++;
-
   // Clears memory
   memory = [];
-  console.log(answerGiven);
 
 });
