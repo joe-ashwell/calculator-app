@@ -1,5 +1,5 @@
 // To target the display screen
-const input = document.querySelector('p');
+const input = document.querySelector('p.display-main');
 input.innerHTML = 0;
 
 // To target the operation buttons
@@ -18,6 +18,12 @@ const mathOp = document.querySelectorAll('.btn-math');
 // Memory of button presses
 let memory = [];
 
+// Answer var
+let answer;
+
+// To evaluate if answer has been given
+let answerGiven = 0;
+
 // Enables the ability to use a media query
 let mQ = window.matchMedia( "(max-width: 767px)" );
 
@@ -26,8 +32,8 @@ numButton.forEach(button => {
 
   button.addEventListener('click', () => {
 
-    // If function to check if the current value is 0, or a math operator,   
-    if ( input.innerHTML == 0 || isNaN(input.innerHTML) ) {
+    // To check if the current value is 0, or a math operator, or the display is an answer and therefore you don't want to append to it   
+    if ( input.innerHTML == 0 || isNaN(input.innerHTML) || answerGiven > 0 ) {
       input.innerHTML = button.dataset.value;
     } else {
       input.innerHTML += button.dataset.value;
@@ -37,14 +43,51 @@ numButton.forEach(button => {
 
 });
 
-// Targets each math operator (excluding = ) and loops through dynamically
+// Targets each math operator (excluding '=' ) and loops through dynamically
 mathOp.forEach(button => {
 
   button.addEventListener('click', () => {
 
-    memory.push(input.innerHTML);
+    // Adds the number to memory but converts from string to float
+    memory.push(parseFloat(input.innerHTML));
+    input.innerHTML = button.dataset.value;
     input.innerHTML = button.dataset.value;
     memory.push(input.innerHTML);
+
+    // To run the calculation and trigger after second number input
+    if ( memory.length === 4 ) {
+      
+      if ( memory[1] === '*' ) {
+
+        let ans = memory[0] * memory[2];
+        memory.splice(0, 3);
+        memory.unshift(ans);
+        console.log(memory);
+  
+      } else if ( memory[1] === '+' ) {
+  
+        let ans = memory[0] + memory[2];
+        memory.splice(0, 3);
+        memory.unshift(ans);
+        console.log(memory);
+  
+      } else if ( memory[1] === '/' ) {
+  
+        let ans = memory[0] / memory[2];
+        memory.splice(0, 3);
+        memory.unshift(ans);
+        console.log(memory);
+  
+      } else if ( memory[1] === '-' ) {
+  
+        let ans = memory[0] - memory[2];
+        memory.splice(0, 3);
+        memory.unshift(ans);
+        console.log(memory);
+  
+      }
+    }
+    
 
   })
 
@@ -55,6 +98,7 @@ ac.addEventListener('click', () => {
 
   memory = [];
   input.innerHTML = 0;
+  answerGiven = 0;
 
 });
 
@@ -63,6 +107,7 @@ cl.addEventListener('click', () => {
 
   memory = [];
   input.innerHTML = 0;
+  answerGiven = 0;
   
 });
 
@@ -80,12 +125,28 @@ decimal.addEventListener('click', () => {
 equals.addEventListener('click', () => {
 
   // Adds last value to memory array
-  memory.push(input.innerHTML);
+  memory.push(parseFloat(input.innerHTML));
 
-  // Joins the array into a string, then uses the eval function to calculate the string
-  let calcString = memory.join("");
-  let answer = eval(calcString);
+  // To run the calculation       
+    if ( memory[1] === '*' ) {
 
+      answer = memory[0] * memory[2];
+
+    } else if ( memory[1] === '+' ) {
+
+      answer = memory[0] + memory[2];
+
+    } else if ( memory[1] === '/' ) {
+
+      answer = memory[0] / memory[2];
+
+    } else if ( memory[1] === '-' ) {
+
+      answer = memory[0] - memory[2];
+
+    }
+
+  // Displays final answer and limits length -- Not the most elegant solution, but it works
   if (mQ.matches) {
     // window width is less than 767px
     limitAnswer = answer.toString().substring(0, 9);
@@ -94,10 +155,12 @@ equals.addEventListener('click', () => {
     limitAnswer = answer.toString().substring(0, 14);
   }
 
-  // Limits the total length of the input field
   input.innerHTML = limitAnswer;
+
+  answerGiven ++;
 
   // Clears memory
   memory = [];
+  console.log(answerGiven);
 
 });
